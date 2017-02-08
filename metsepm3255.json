@@ -1,0 +1,217 @@
+{
+ "I1": [
+  2999,
+  2,
+  "float32"
+ ],
+ "I2": [
+  3001,
+  2,
+  "float32"
+ ],
+ "I3": [
+  3003,
+  2,
+  "float32"
+ ],
+ "In": [
+  3005,
+  2,
+  "float32"
+ ],
+ "Iavg": [
+  3009,
+  2,
+  "float32"
+ ],
+ "VL1L2": [
+  3019,
+  2,
+  "float32"
+ ],
+ "VL2L3": [
+  3021,
+  2,
+  "float32"
+ ],
+ "VL3L1": [
+  3023,
+  2,
+  "float32"
+ ],
+ "VLLavg": [
+  3025,
+  2,
+  "float32"
+ ],
+ "VL1N": [
+  3027,
+  2,
+  "float32"
+ ],
+ "VL2N": [
+  3029,
+  2,
+  "float32"
+ ],
+ "VL3N": [
+  3031,
+  2,
+  "float32"
+ ],
+ "VLN": [
+  3035,
+  2,
+  "float32"
+ ],
+ "ActivePowerPh1": [
+  3053,
+  2,
+  "float32"
+ ],
+ "ActivePowerPh2": [
+  3055,
+  2,
+  "float32"
+ ],
+ "ActivePowerPh3": [
+  3057,
+  2,
+  "float32"
+ ],
+ "ActivePowerTotal": [
+  3059,
+  2,
+  "float32"
+ ],
+ "ReactivePowerPhase1": [
+  3061,
+  2,
+  "float32"
+ ],
+ "ReactivePowerPhase2": [
+  3063,
+  2,
+  "float32"
+ ],
+ "ReactivePowerPhase3": [
+  3065,
+  2,
+  "float32"
+ ],
+ "ReactivePowerTotal": [
+  3067,
+  2,
+  "float32"
+ ],
+ "ApparentPowerPhase1": [
+  3069,
+  2,
+  "float32"
+ ],
+ "ApparentPowerPhase2": [
+  3071,
+  2,
+  "float32"
+ ],
+ "ApparentPowerPhase3": [
+  3073,
+  2,
+  "float32"
+ ],
+ "ApparentPowerTotal": [
+  3075,
+  2,
+  "float32"
+ ],
+ "PowerFactorPhase1": [
+  3077,
+  2,
+  "float32"
+ ],
+ "PowerFactorPhase2": [
+  3079,
+  2,
+  "float32"
+ ],
+ "PowerFactorPhase3": [
+  3081,
+  2,
+  "float32"
+ ],
+ "PowerFactorTotal": [
+  3083,
+  2,
+  "float32"
+ ],
+ "Frequency": [
+  3109,
+  2,
+  "float32"
+ ],
+ "ActiveEnergyImportTotal": [
+  3203,
+  4,
+  "int64"
+ ],
+ "ActiveEnergyExportTotal": [
+  3207,
+  4,
+  "int64"
+ ],
+ "ReactiveEnergyImport": [
+  3219,
+  4,
+  "int64"
+ ],
+ "ReactiveEnergyExport": [
+  3223,
+  4,
+  "int64"
+ ],
+ "ApparentEnergyImportTotal": [
+  3235,
+  4,
+  "int64"
+ ],
+ "ApparentEnergyExportTotal": [
+  3239,
+  4,
+  "int64"
+ ],
+ "ActiveTariff": [
+  4190,
+  1,
+  "int64"
+ ],
+ "ActiveEnergyImportRate1": [
+  4195,
+  4,
+  "int64"
+ ],
+ "ActiveEnergyImportRate2": [
+  4199,
+  4,
+  "int64"
+ ],
+ "ActiveEnergyImportRate3": [
+  4203,
+  4,
+  "int64"
+ ],
+ "ActiveEnergyImportRate4": [
+  4207,
+  4,
+  "int64"
+ ],
+ "InputMeteringAccumulation1": [
+  3557,
+  4,
+  "int64"
+ ],
+ "InputMeteringAccumulation2": [
+  3561,
+  4,
+  "int64"
+ ]
+}
