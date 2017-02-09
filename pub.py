@@ -15,7 +15,7 @@ mqttc.on_connect = on_connect
 mqttc.connect(MQTT_HOST, MQTT_PORT, MQTT_KEEPALIVE_INTERVAL)
 print("Connected to host...")
 
-while(1):
+def readPowerStatus():
     batteryVoltage = str(commands.getstatusoutput('cat /sys/class/power_supply/battery/voltage_now')).split('\'')[1]
     batteryVoltage = batteryVoltage[0] + "." + batteryVoltage[1:4]
     voltageNow = str(commands.getstatusoutput('cat /sys/class/power_supply/ac/voltage_now')).split('\'')[1]
@@ -26,9 +26,6 @@ while(1):
     batteryCurrent = "0." + batteryCurrent[0:4]
     batteryCapacity = str(commands.getstatusoutput('cat /sys/class/power_supply/battery/capacity')).split('\'')[1]
     batteryOnline = str(commands.getstatusoutput('cat /sys/class/power_supply/battery/online')).split('\'')[1]
-
-    meterVoltage, meterEnergy, meterFrequency = (str(commands.getstatusoutput('./read_pm3255.py VL1N ActiveEnergyImportTotal Frequency')).split("\'")[1].split("\\n"))
-
     mqttc.publish("controllers/a20/battery/online", batteryOnline)
     mqttc.publish("controllers/a20/battery/voltage", batteryVoltage)
     mqttc.publish("controllers/a20/battery/current", batteryCurrent)
@@ -36,10 +33,20 @@ while(1):
     mqttc.publish("controllers/a20/supply/voltage", voltageNow)
     mqttc.publish("controllers/a20/supply/current", currentNow)
 
-    mqttc.publish("meters/pm3255/energy", str(float(meterEnergy)/1000))
-    mqttc.publish("meters/pm3255/voltage", meterVoltage)
+def readMeterParameters():
+    meterVL1N, meterVL2N, meterVL3N, meterFrequency, meterActiveEnergyImportTotal, meterActiveEnergyExportTotal = str(commands.getstatusoutput('./read_pm3255.py "VL1N VL2N VL3N Frequency ActiveEnergyImportTotal ActiveEnergyExportTotal"'))[5:-2].split("\\n")
+
+    mqttc.publish("meters/pm3255/energy", str(float(meterActiveEnergyImportTotal) / 1000))
+    mqttc.publish("meters/pm3255/energyx", str(float(meterActiveEnergyExportTotal) / 1000))
+    mqttc.publish("meters/pm3255/voltage", meterVL1N)
+    mqttc.publish("meters/pm3255/voltage2", meterVL2N)
+    mqttc.publish("meters/pm3255/voltage3", meterVL3N)
     mqttc.publish("meters/pm3255/frequency", meterFrequency)
-    time.sleep(1)
+
+while(1):
+    readPowerStatus()
+    readMeterParameters()
+    time.sleep(5)
 
 mqttc.disconnect()
 print("Disconnected from host!")
