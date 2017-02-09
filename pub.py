@@ -27,8 +27,7 @@ while(1):
     batteryCapacity = str(commands.getstatusoutput('cat /sys/class/power_supply/battery/capacity')).split('\'')[1]
     batteryOnline = str(commands.getstatusoutput('cat /sys/class/power_supply/battery/online')).split('\'')[1]
 
-    meterEnergy, meterVoltage = str(commands.getstatusoutput('./read_pm3255.py VL1N ActiveEnergyImportTotal')).split('\'')
-    #meterVoltage = str(commands.getstatusoutput('./read_pm3255.py "ActiveEnergyImportTotal"')).split('\'')[1]
+    meterVoltage, meterEnergy = (str(commands.getstatusoutput('./read_pm3255.py VL1N ActiveEnergyImportTotal')).split("\'")[1].split("\\n"))
 
     mqttc.publish("/controllers/a20/battery/online", batteryOnline)
     mqttc.publish("/controllers/a20/battery/voltage", batteryVoltage)
@@ -36,7 +35,8 @@ while(1):
     mqttc.publish("/controllers/a20/battery/capacity", batteryCapacity)
     mqttc.publish("/controllers/a20/supply/voltage", voltageNow)
     mqttc.publish("/controllers/a20/supply/current", currentNow)
-    mqttc.publish("/meters/pm3255/energy", meterEnergy)
+
+    mqttc.publish("/meters/pm3255/energy", str(float(meterEnergy)/1000))
     mqttc.publish("/meters/pm3255/voltage", meterVoltage)
     time.sleep(1)
 

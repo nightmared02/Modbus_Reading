@@ -10,7 +10,7 @@ with open(meter1.model + '.json') as json_file:
 
 registerToRead = []
 
-for argument in sys.argv:
+for argument in sys.argv[1:]:
     registerToRead.append(argument)
 
 for element in registerToRead:
