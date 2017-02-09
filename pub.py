@@ -27,17 +27,18 @@ while(1):
     batteryCapacity = str(commands.getstatusoutput('cat /sys/class/power_supply/battery/capacity')).split('\'')[1]
     batteryOnline = str(commands.getstatusoutput('cat /sys/class/power_supply/battery/online')).split('\'')[1]
 
-    meterVoltage, meterEnergy = (str(commands.getstatusoutput('./read_pm3255.py VL1N ActiveEnergyImportTotal')).split("\'")[1].split("\\n"))
+    meterVoltage, meterEnergy, meterFrequency = (str(commands.getstatusoutput('./read_pm3255.py VL1N ActiveEnergyImportTotal Frequency')).split("\'")[1].split("\\n"))
 
-    mqttc.publish("/controllers/a20/battery/online", batteryOnline)
-    mqttc.publish("/controllers/a20/battery/voltage", batteryVoltage)
-    mqttc.publish("/controllers/a20/battery/current", batteryCurrent)
-    mqttc.publish("/controllers/a20/battery/capacity", batteryCapacity)
-    mqttc.publish("/controllers/a20/supply/voltage", voltageNow)
-    mqttc.publish("/controllers/a20/supply/current", currentNow)
+    mqttc.publish("controllers/a20/battery/online", batteryOnline)
+    mqttc.publish("controllers/a20/battery/voltage", batteryVoltage)
+    mqttc.publish("controllers/a20/battery/current", batteryCurrent)
+    mqttc.publish("controllers/a20/battery/capacity", batteryCapacity)
+    mqttc.publish("controllers/a20/supply/voltage", voltageNow)
+    mqttc.publish("controllers/a20/supply/current", currentNow)
 
-    mqttc.publish("/meters/pm3255/energy", str(float(meterEnergy)/1000))
-    mqttc.publish("/meters/pm3255/voltage", meterVoltage)
+    mqttc.publish("meters/pm3255/energy", str(float(meterEnergy)/1000))
+    mqttc.publish("meters/pm3255/voltage", meterVoltage)
+    mqttc.publish("meters/pm3255/frequency", meterFrequency)
     time.sleep(1)
 
 mqttc.disconnect()
