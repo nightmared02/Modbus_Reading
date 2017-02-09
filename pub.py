@@ -26,8 +26,10 @@ while(1):
     batteryCurrent = "0." + batteryCurrent[0:4]
     batteryCapacity = str(commands.getstatusoutput('cat /sys/class/power_supply/battery/capacity')).split('\'')[1]
     batteryOnline = str(commands.getstatusoutput('cat /sys/class/power_supply/battery/online')).split('\'')[1]
-    meterEnergy = str(commands.getstatusoutput('./read_pm3255.py')).split('\'')[3]
-    meterVoltage = str(commands.getstatusoutput('./read_pm3255.py')).split('\'')[1]
+
+    meterEnergy, meterVoltage = str(commands.getstatusoutput('./read_pm3255.py VL1N ActiveEnergyImportTotal')).split('\'')
+    #meterVoltage = str(commands.getstatusoutput('./read_pm3255.py "ActiveEnergyImportTotal"')).split('\'')[1]
+
     mqttc.publish("/controllers/a20/battery/online", batteryOnline)
     mqttc.publish("/controllers/a20/battery/voltage", batteryVoltage)
     mqttc.publish("/controllers/a20/battery/current", batteryCurrent)
