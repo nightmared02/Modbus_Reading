@@ -6,7 +6,7 @@ import time
 def on_connect(client, userdata, rc):
     print("Connected with result code "+str(rc))
 
-MQTT_HOST = "84.242.134.74"
+MQTT_HOST = "<ip-address>"
 MQTT_PORT = 1883
 MQTT_KEEPALIVE_INTERVAL = 60
 
