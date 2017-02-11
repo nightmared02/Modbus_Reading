@@ -44,6 +44,10 @@ class EnergyMeter:
             concatResultHexValue = hex(int(concatResult, 2))[2:]
             if (concatResultHexValue) == 'ffc00000L':
                 return("NaN")
+            elif (concatResultHexValue == '7f800000'):
+                return("Inf")
+            elif (concatResultHexValue == 'ff800000'):
+                return("-Inf")
             else:
                 pass
             finalResult = str(struct.unpack('!f', concatResultHexValue.decode('hex'))[0])[:-7]
