@@ -30,7 +30,7 @@ def readPowerStatus():
     batteryOnline = str(commands.getstatusoutput('cat /sys/class/power_supply/battery/online')).split('\'')[1]
     currentIpAddress = (str(commands.getstatusoutput('ifconfig eth0')).split(':')[7][:-7])
     strcpuTemp = str(commands.getstatusoutput('cat /sys/class/hwmon/hwmon0/device/temp1_input')).split('\'')[1]
-    cpuTemp = str(float(strcpuTemp)/1000)
+    cpuTemp = "%.2f" % (float(strcpuTemp)/1000)
     mqttc.publish("controllers/a20/battery/online", batteryOnline)
     mqttc.publish("controllers/a20/battery/voltage", batteryVoltage)
     mqttc.publish("controllers/a20/battery/current", batteryCurrent)
@@ -41,13 +41,15 @@ def readPowerStatus():
     mqttc.publish("controllers/a20/cpu/temp", cpuTemp)
 
 def readMeterParameters():
-    meterVL1N, meterVL2N, meterVL3N, meterFrequency, meterActiveEnergyImportTotal, meterActiveEnergyExportTotal = str(commands.getstatusoutput('./read_pm3255.py "VL1N VL2N VL3N Frequency ActiveEnergyImportTotal ActiveEnergyExportTotal"'))[5:-2].split("\\n")
-    mqttc.publish("meters/pm3255/energy", str(float(meterActiveEnergyImportTotal) / 1000))
-    mqttc.publish("meters/pm3255/energyx", str(float(meterActiveEnergyExportTotal) / 1000))
+    meterVL1N, meterVL2N, meterVL3N, meterFrequency, meterActiveEnergyImportTotal, meterActiveEnergyExportTotal, meterI1, meterActivePowerPh1 = str(commands.getstatusoutput('./read_pm3255.py "VL1N VL2N VL3N Frequency ActiveEnergyImportTotal ActiveEnergyExportTotal I1 ActivePowerPh1"'))[5:-2].split("\\n")
+    mqttc.publish("meters/pm3255/energy", "%.2f" % (float(meterActiveEnergyImportTotal) / 1000))
+    #mqttc.publish("meters/pm3255/energyx", str(float(meterActiveEnergyExportTotal) / 1000))
     mqttc.publish("meters/pm3255/voltage", meterVL1N)
     mqttc.publish("meters/pm3255/voltage2", meterVL2N)
     mqttc.publish("meters/pm3255/voltage3", meterVL3N)
     mqttc.publish("meters/pm3255/frequency", meterFrequency)
+    mqttc.publish("meters/pm3255/current/i1", meterI1)
+    mqttc.publish("meters/pm3255/power/activepower1", meterActivePowerPh1)
 
 while(1):
     readPowerStatus()

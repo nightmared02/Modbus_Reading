@@ -25,8 +25,8 @@ class EnergyMeter:
                 binRegister = binRegister[::-1]
                 concatResult.append(binRegister)
             concatResult = ''.join(concatResult)
-            concatResult = (float(int(concatResult, 2)))
-            return concatResult
+            concatResult = float(int(concatResult, 2))
+            return "%.2f" % concatResult
         elif datatype == 'float32':
             concatResult = []
             for register in result.registers:
@@ -48,9 +48,12 @@ class EnergyMeter:
                 return("Inf")
             elif (concatResultHexValue == 'ff800000'):
                 return("-Inf")
+            elif (concatResultHexValue == '0'):
+                return("0.00")
             else:
                 pass
-            finalResult = str(struct.unpack('!f', concatResultHexValue.decode('hex'))[0])[:-7]
+            #finalResult = str(struct.unpack('!f', concatResultHexValue.decode('hex'))[0])[:-7]
+            finalResult = "%.2f" % float(struct.unpack('!f', concatResultHexValue.decode('hex'))[0])
             return finalResult
         else:
             return result.registers
